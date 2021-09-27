@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Model\IAutomaton.cs" />
     <Compile Include="Model\IGraph.cs" />
+    <Compile Include="Model\ListGraph.cs" />
     <Compile Include="Model\Program.cs" />
     <Compile Include="Model\Vertex.cs" />
     <Compile Include="Model\VertexADJ.cs" />
