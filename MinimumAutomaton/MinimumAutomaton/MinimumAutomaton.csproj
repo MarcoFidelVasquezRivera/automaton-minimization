@@ -46,11 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUI\Form1.cs">
+    <Compile Include="GUI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="GUI\MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\StateTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\StateTable.Designer.cs">
+      <DependentUpon>StateTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MachineDefinition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\MachineDefinition.Designer.cs">
+      <DependentUpon>MachineDefinition.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\IAutomaton.cs" />
     <Compile Include="Model\IGraph.cs" />
@@ -58,6 +70,15 @@
     <Compile Include="Model\Vertex.cs" />
     <Compile Include="Model\VertexADJ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\StateTable.resx">
+      <DependentUpon>StateTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MachineDefinition.resx">
+      <DependentUpon>MachineDefinition.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
