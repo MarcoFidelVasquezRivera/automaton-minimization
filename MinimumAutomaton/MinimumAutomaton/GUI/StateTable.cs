@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MinimumAutomaton.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +13,16 @@ namespace MinimumAutomaton.GUI
 {
     public partial class StateTable : UserControl
     {
-        public DataTable data;
-        public String machineType;
+        private DataTable data;
+        private String machineType;
+        private MachineManager manager;
 
-        public StateTable(DataTable data, String machineType)
+        public StateTable(DataTable data, String machineType, MachineManager manager)
         {
             InitializeComponent();
             this.data = data;
             this.machineType = machineType;
+            this.manager = manager;
             populateTable();
         }
 
@@ -94,17 +97,8 @@ namespace MinimumAutomaton.GUI
                 }
             }
 
-
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                {
-                    Console.Write(string.Format("{0} ", matrix[i, j]));
-                }
-                Console.Write(Environment.NewLine + Environment.NewLine);
-            }
+            Console.WriteLine(machineType);
+            manager = new MachineManager(matrix, machineType);
         }
-
-       
     }
 }

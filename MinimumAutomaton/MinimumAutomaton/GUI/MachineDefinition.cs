@@ -12,6 +12,7 @@ namespace MinimumAutomaton.GUI
 {
     public partial class MachineDefinition : UserControl
     {
+
         public MachineDefinition()
         {
             InitializeComponent();

@@ -1,4 +1,5 @@
 ﻿using MinimumAutomaton.GUI;
+using MinimumAutomaton.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,9 +15,11 @@ namespace MinimumAutomaton
 
     public partial class Form1 : Form
     {
+        private MachineManager manager;
         public Form1()
         {
             InitializeComponent();
+            manager = new MachineManager(null,null);
         }
 
         private void CreateTable(object sender, EventArgs e)
@@ -44,7 +47,7 @@ namespace MinimumAutomaton
             }
 
             data.Columns.Add();
-            StateTable st = new StateTable(data, values[0]);
+            StateTable st = new StateTable(data, values[0], manager);
 
             machineDefinitionButton.Hide();
             panel1.Controls.Clear();

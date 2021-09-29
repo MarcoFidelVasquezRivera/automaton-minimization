@@ -64,6 +64,8 @@
     <Compile Include="GUI\MachineDefinition.Designer.cs">
       <DependentUpon>MachineDefinition.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\MachineManager.cs" />
+    <Compile Include="Model\MealyMachine.cs" />
     <Compile Include="Model\IAutomaton.cs" />
     <Compile Include="Model\MooreMachine.cs" />
     <Compile Include="Model\Program.cs" />
