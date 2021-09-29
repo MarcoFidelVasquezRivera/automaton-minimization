@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MinimumAutomaton.Model
 {
-    interface IAutomaton
+    public interface IAutomaton
     {
-        void DeleteNotAccesibleStates();
+        void DeleteNotAccesibleStates(Dictionary<string, int> minimumStates, int state = 1);
         void GeneratePartitions();
         void GenerateMinimumEquivalentAutomaton();
     }
