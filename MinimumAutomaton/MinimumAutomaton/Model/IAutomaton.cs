@@ -8,7 +8,8 @@ namespace MinimumAutomaton.Model
 {
     public interface IAutomaton
     {
-        void DeleteNotAccesibleStates(Dictionary<string, int> minimumStates, int state = 1);
+        void GetAccesibleStates(Dictionary<string, int> minimumStates, int state = 1);
+        void DeleteNotAccesibleStates();
         void GeneratePartitions();
         void GenerateMinimumEquivalentAutomaton();
     }

@@ -10,9 +10,9 @@ namespace MinimumAutomaton.Model
     {
         public List<string> states;
         public string[,] transitions;
-        public List<string> outputs;
+        public Dictionary<string,string> outputs;
 
-        public MooreMachine(List<string> states, string[,] transitions, List<string> outputs)
+        public MooreMachine(List<string> states, string[,] transitions, Dictionary<string, string> outputs)
         {
             this.states = states;
             this.transitions = transitions;
@@ -46,6 +46,32 @@ namespace MinimumAutomaton.Model
         {
             Dictionary<string, int> accesibleStates = new Dictionary<string, int>();
             GetAccesibleStates(accesibleStates, 0);//gets the accesible states from the initial state
+
+            
+            List<string> newStates = new List<string>(accesibleStates.Keys);
+
+            int nRows = newStates.Count;
+            int nColumns = transitions.GetLength(1);
+            string[,] newTransitions = new string[nRows, nColumns];//creates a new matrix for transitions using the count of the accesible states
+                                                                                          //for the number of rows and the number of columns in the original matrix for its number of columns
+            for (int i=0; i<nRows; i++)
+            {
+                for (int j=0;j<nColumns;j++)
+                {
+                    newTransitions[i,j] = transitions[i,j];
+                }
+            }
+
+            foreach (string key in outputs.Keys)
+            {
+                if (!newStates.Contains(key))
+                {
+                    outputs.Remove(key);
+                }
+            }
+
+            states = newStates;
+            transitions = newTransitions;
         }
 
         public void GeneratePartitions()

@@ -65,11 +65,8 @@
       <DependentUpon>MachineDefinition.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\IAutomaton.cs" />
-    <Compile Include="Model\IGraph.cs" />
-    <Compile Include="Model\ListGraph.cs" />
+    <Compile Include="Model\MooreMachine.cs" />
     <Compile Include="Model\Program.cs" />
-    <Compile Include="Model\Vertex.cs" />
-    <Compile Include="Model\VertexADJ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
