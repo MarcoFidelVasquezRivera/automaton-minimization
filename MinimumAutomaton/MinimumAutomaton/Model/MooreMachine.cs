@@ -76,7 +76,71 @@ namespace MinimumAutomaton.Model
 
         public void GeneratePartitions()
         {
-            throw new NotImplementedException();
+            Dictionary<string, List<string>> initialPartitions = new Dictionary<string, List<string>>();
+
+            for (int i=0; i<states.Count;i++)//crea las particiones basadas en lo outputs
+            {
+                string key = outputs[states[i]];
+                if (!initialPartitions.ContainsKey(key))
+                {
+                    initialPartitions.Add(key,new List<string>());
+                }
+                initialPartitions[key].Add(states[i]);
+            }
+
+            List<List<string>> partitions = new List<List<string>>();
+
+            foreach (string key in initialPartitions.Keys)//pasa las listas del diccionario a otra lista
+            {
+                partitions.Add(initialPartitions[key]);
+            }
+
+            int initialLength = partitions.Count;
+            int currentLength = initialLength;
+
+            do
+            {
+                for (int i = 0; i < partitions.Count; i++)
+                {
+                    List<string> partition = partitions[i];
+                    List<int> representativeIndexes = new List<int>();//indices de las particiones a las que apunta el estado representante
+                    List<string> nonEquivalentStates = new List<string>();
+
+                    int row = states.IndexOf(partition[0]);//me va a dar el indice del estado que representa a la particion
+
+                    foreach (string currentState in partition)
+                    {
+                        row = states.IndexOf(currentState);
+                        for (int j = 0; j < transitions.GetLength(1); j++)//saco los indices de las particiones a las que se puede acceder desde el estado representante
+                        {
+                            string accesibleState = transitions[row, j];
+                            foreach (List<string> currentPartition in partitions)
+                            {
+                                if (currentPartition.Contains(accesibleState))
+                                {
+                                    if (currentState.Equals(partition[0]))
+                                    {
+                                        representativeIndexes.Add(partitions.IndexOf(currentPartition));
+                                    }
+                                    else if(!representativeIndexes.Contains(partitions.IndexOf(currentPartition)))
+                                    {
+                                        nonEquivalentStates.Add(currentState);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    foreach(string currentState in nonEquivalentStates){//elimino los estdos no equivalentes de la particion
+                        partition.Remove(currentState);
+                    }
+
+                    partitions.Add(nonEquivalentStates);//añado lo estados no equivalentes como una nueva partición
+                }
+                currentLength = partitions.Count;
+
+            } while (initialLength < currentLength);
+
         }
 
         public void GenerateMinimumEquivalentAutomaton()
