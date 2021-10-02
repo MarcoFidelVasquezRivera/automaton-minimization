@@ -99,6 +99,7 @@ namespace MinimumAutomaton.GUI
 
             Console.WriteLine(machineType);
             manager = new MachineManager(matrix, machineType);
+            manager.CreateMachine();
         }
     }
 }

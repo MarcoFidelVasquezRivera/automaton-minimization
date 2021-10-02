@@ -53,25 +53,45 @@ namespace MinimumAutomaton.Model
             int nRows = newStates.Count;
             int nColumns = transitions.GetLength(1);
             string[,] newTransitions = new string[nRows, nColumns];//creates a new matrix for transitions using the count of the accesible states
-                                                                                          //for the number of rows and the number of columns in the original matrix for its number of columns
-            for (int i=0; i<nRows; i++)
+                                                                  //for the number of rows and the number of columns in the original matrix for its number of columns
+            for(int i = 0; i < nRows; i++) 
             {
-                for (int j=0;j<nColumns;j++)
+                int row = states.IndexOf(newStates[i]);
+                for (int j = 0; j < nColumns; j++)
                 {
-                    newTransitions[i,j] = transitions[i,j];
+                   newTransitions[i, j] = transitions[row, j];
                 }
             }
 
+
+            List<string> nonAccesibleOutputs = new List<string>();
             foreach (string key in outputs.Keys)
             {
                 if (!newStates.Contains(key))
                 {
-                    outputs.Remove(key);
+                    nonAccesibleOutputs.Add(key);
                 }
+            }
+
+            foreach (string key in nonAccesibleOutputs)
+            {
+                outputs.Remove(key);
             }
 
             states = newStates;
             transitions = newTransitions;
+
+            for (int i = 0; i < states.Count; i++) {
+                Console.Write("States   " + states[i]);
+                for (int j = 0; j < transitions.GetLength(1); j++)
+                {
+                    Console.Write(" Transitions " + transitions[i,j]);
+                    
+                }
+
+                Console.WriteLine(" Outputs " + outputs[states[i]]);
+            }
+
         }
 
         public void GeneratePartitions()
@@ -92,14 +112,19 @@ namespace MinimumAutomaton.Model
 
             foreach (string key in initialPartitions.Keys)//pasa las listas del diccionario a otra lista
             {
-                partitions.Add(initialPartitions[key]);
+                List<string> currentPar = new List<string>();
+                foreach (string value in initialPartitions[key])
+                {
+                    currentPar.Add(value);
+                }
+                partitions.Add(currentPar);
             }
 
             int initialLength = partitions.Count;
             int currentLength = initialLength;
 
             do
-            {
+            {              
                 for (int i = 0; i < partitions.Count; i++)
                 {
                     List<string> partition = partitions[i];
@@ -135,11 +160,29 @@ namespace MinimumAutomaton.Model
                         partition.Remove(currentState);
                     }
 
-                    partitions.Add(nonEquivalentStates);//añado lo estados no equivalentes como una nueva partición
+                    if (nonEquivalentStates.Count > 0)
+                    {
+                        partitions.Add(nonEquivalentStates);//añado lo estados no equivalentes como una nueva partición
+                    }
+                    
                 }
+
+                initialLength = currentLength;
                 currentLength = partitions.Count;
+                
 
             } while (initialLength < currentLength);
+
+            foreach (List<string> par in partitions) 
+            {
+                Console.Write("{");
+                foreach (string value in par) 
+                {
+                    Console.Write(value + ",");
+                
+                }
+                Console.WriteLine("}");
+            }
 
         }
 
@@ -147,7 +190,5 @@ namespace MinimumAutomaton.Model
         {
             throw new NotImplementedException();
         }
-
-
     }
 }
