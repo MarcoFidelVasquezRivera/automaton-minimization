@@ -188,7 +188,20 @@ namespace MinimumAutomaton.Model
 
         public void GenerateMinimumEquivalentAutomaton()
         {
-            List<List<string>> partitions = GeneratePartitions();
+            List<List<string>> newPartitions = GeneratePartitions();
+            List<List<string>> partitions = new List<List<string>>();
+
+            partitions.Add(newPartitions[0]);
+
+            newPartitions.RemoveAt(0);
+            newPartitions.Reverse();
+
+            foreach (List<string> partition in newPartitions)
+            {
+                partitions.Add(partition);
+            }
+
+
             List<string> newStates = new List<string>();
 
 
