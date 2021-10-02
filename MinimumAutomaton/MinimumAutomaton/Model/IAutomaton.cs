@@ -10,7 +10,7 @@ namespace MinimumAutomaton.Model
     {
         void GetAccesibleStates(Dictionary<string, int> minimumStates, int state = 1);
         void DeleteNotAccesibleStates();
-        void GeneratePartitions();
+        List<List<string>> GeneratePartitions();
         void GenerateMinimumEquivalentAutomaton();
     }
 }

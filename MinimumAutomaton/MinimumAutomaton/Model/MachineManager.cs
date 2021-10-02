@@ -50,6 +50,7 @@ namespace MinimumAutomaton.Model
                 IAutomaton machine = new MooreMachine(states, transitions, outputs);
                 machine.DeleteNotAccesibleStates();
                 machine.GeneratePartitions();
+                machine.GenerateMinimumEquivalentAutomaton();
 
             }
             else {

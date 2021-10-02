@@ -94,7 +94,7 @@ namespace MinimumAutomaton.Model
 
         }
 
-        public void GeneratePartitions()
+        public List<List<string>> GeneratePartitions()
         {
             Dictionary<string, List<string>> initialPartitions = new Dictionary<string, List<string>>();
 
@@ -183,12 +183,68 @@ namespace MinimumAutomaton.Model
                 }
                 Console.WriteLine("}");
             }
-
+            return partitions;
         }
 
         public void GenerateMinimumEquivalentAutomaton()
         {
-            throw new NotImplementedException();
+            List<List<string>> partitions = GeneratePartitions();
+            List<string> newStates = new List<string>();
+
+
+            for (int i = 0; i < partitions.Count; i++)
+            {
+                newStates.Add("q"+i);
+            }
+
+            int nRows = newStates.Count;
+            int nColumns = transitions.GetLength(1);
+            string[,] newTransitions = new string[nRows, nColumns];//creates a new matrix for transitions using the count of the accesible states
+                                                                   //for the number of rows and the number of columns in the original matrix for its number of column
+
+            Dictionary<string, string> newOutputs = new Dictionary<string, string>();
+            for (int i = 0; i<nRows; i++)
+            {
+                newOutputs.Add(newStates[i],outputs[partitions[i][0]]);
+            }
+
+
+            for (int i=0; i< nRows; i++)
+            {
+                int row = states.IndexOf(partitions[i][0]);
+                for (int j = 0; j < nColumns; j++)//saco los indices de las particiones a las que se puede acceder desde el estado representante
+                {
+                    string accesibleState = transitions[row, j];
+                    foreach (List<string> currentPartition in partitions)
+                    {
+                        if (currentPartition.Contains(accesibleState))
+                        {
+                            string transition = newStates[partitions.IndexOf(currentPartition)];//saco la transicion del estado actual en j
+                            newTransitions[i, j] = transition;//le pongo la transicion a la nueva matriz de transiciones
+                        }
+                    }
+                }
+            }
+
+            states = newStates;
+            transitions = newTransitions;
+            outputs = newOutputs;
+
+            for (int i = 0; i < states.Count; i++)
+            {
+                Console.Write("States   " + states[i]);
+                for (int j = 0; j < transitions.GetLength(1); j++)
+                {
+                    Console.Write(" Transitions " + transitions[i, j]);
+
+                }
+
+                Console.WriteLine(" Outputs " + outputs[states[i]]);
+            }
+
+
+
+
         }
     }
 }

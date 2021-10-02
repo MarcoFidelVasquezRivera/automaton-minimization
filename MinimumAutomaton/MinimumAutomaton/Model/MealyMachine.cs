@@ -71,16 +71,14 @@ namespace MinimumAutomaton.Model
             outputs = newOutputs;
             states = newStates;
         }
+        public List<List<string>> GeneratePartitions()
+        {
+            throw new NotImplementedException();
+        }
 
         public void GenerateMinimumEquivalentAutomaton()
         {
             throw new NotImplementedException();
         }
-
-        public void GeneratePartitions()
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
