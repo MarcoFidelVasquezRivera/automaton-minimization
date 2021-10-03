@@ -52,6 +52,12 @@
     <Compile Include="GUI\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ReducedTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ReducedTable.Designer.cs">
+      <DependentUpon>ReducedTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\StateTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ReducedTable.resx">
+      <DependentUpon>ReducedTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\StateTable.resx">
       <DependentUpon>StateTable.cs</DependentUpon>

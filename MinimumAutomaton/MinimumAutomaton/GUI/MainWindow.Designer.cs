@@ -30,8 +30,9 @@ namespace MinimumAutomaton
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.machineDefinitionButton = new System.Windows.Forms.Button();
             this.machineDefinition1 = new MinimumAutomaton.GUI.MachineDefinition();
+            this.machineDefinitionButton = new System.Windows.Forms.Button();
+            this.goBackButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,6 +44,14 @@ namespace MinimumAutomaton
             this.panel1.Size = new System.Drawing.Size(767, 401);
             this.panel1.TabIndex = 0;
             // 
+            // machineDefinition1
+            // 
+            this.machineDefinition1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.machineDefinition1.Location = new System.Drawing.Point(0, 0);
+            this.machineDefinition1.Name = "machineDefinition1";
+            this.machineDefinition1.Size = new System.Drawing.Size(767, 401);
+            this.machineDefinition1.TabIndex = 0;
+            // 
             // machineDefinitionButton
             // 
             this.machineDefinitionButton.Location = new System.Drawing.Point(355, 419);
@@ -53,18 +62,23 @@ namespace MinimumAutomaton
             this.machineDefinitionButton.UseVisualStyleBackColor = true;
             this.machineDefinitionButton.Click += new System.EventHandler(this.CreateTable);
             // 
-            // machineDefinition1
+            // goBackButton
             // 
-            this.machineDefinition1.Location = new System.Drawing.Point(130, 54);
-            this.machineDefinition1.Name = "machineDefinition1";
-            this.machineDefinition1.Size = new System.Drawing.Size(489, 320);
-            this.machineDefinition1.TabIndex = 0;
+            this.goBackButton.Location = new System.Drawing.Point(593, 419);
+            this.goBackButton.Name = "goBackButton";
+            this.goBackButton.Size = new System.Drawing.Size(43, 23);
+            this.goBackButton.TabIndex = 9;
+            this.goBackButton.Text = "Back";
+            this.goBackButton.UseVisualStyleBackColor = true;
+            this.goBackButton.Visible = false;
+            this.goBackButton.Click += new System.EventHandler(this.goBackButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.goBackButton);
             this.Controls.Add(this.machineDefinitionButton);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
@@ -79,6 +93,7 @@ namespace MinimumAutomaton
         private GUI.MachineDefinition machineDefinition1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button machineDefinitionButton;
+        private System.Windows.Forms.Button goBackButton;
     }
 }
 

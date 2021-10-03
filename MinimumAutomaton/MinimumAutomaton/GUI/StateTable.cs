@@ -1,4 +1,5 @@
 ﻿using MinimumAutomaton.Model;
+using MinimumAutomaton;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,26 +81,101 @@ namespace MinimumAutomaton.GUI
         private void saveStates_Click(object sender, EventArgs e)
         {
             String[,] matrix = new string[data.Rows.Count+1,data.Columns.Count];
-            
-            for (int i = 0; i < data.Columns.Count; i++)
+            Boolean validInput = true;
+            int stateExists = 0;
+
+            for (int column = 0; column < data.Columns.Count && validInput; column++) 
             {
-                matrix[0, i] = data.Columns[i].ColumnName;
-
-            }
-
-
-
-            for(int column = 0; column < data.Columns.Count; column++) 
-            { 
-                for (int row = 0; row < data.Rows.Count; row++)
+                for (int row = 0; row < data.Rows.Count && validInput; row++)
                 {
-                    matrix[row+1,column] = Convert.ToString(data.Rows[row].ItemArray[column]);
+                    if(Convert.ToString(data.Rows[row].ItemArray[column]).Equals("") || Convert.ToString(data.Rows[row].ItemArray[column]) == null)
+                    {
+                       MessageBox.Show("Ningun campo puede estar vacio", "Invalido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                       validInput = false;
+                    }
+
                 }
             }
 
-            Console.WriteLine(machineType);
-            manager = new MachineManager(matrix, machineType);
-            manager.CreateMachine();
+            List<string> states = new List<string>();
+
+            for (int row = 0; row < data.Rows.Count && validInput; row++)
+            {
+
+                states.Add(Convert.ToString(data.Rows[row].ItemArray[0]));
+
+            }
+
+            int size = 0;
+            if (machineType.Equals("Moore"))
+            {
+                
+                for (int column = 1; column < data.Columns.Count-1; column++)
+                {
+                    for (int row = 0; row < data.Rows.Count; row++)
+                    {
+                        size++;
+                        for(int i = 0; i < states.Count; i++) 
+                        {
+                            if (states[i].Equals(Convert.ToString(data.Rows[row].ItemArray[column])))
+                            {
+
+                                stateExists++;
+
+                            }
+                        }
+                    }
+                }
+            }
+            else if (machineType.Equals("Mealy"))
+            {
+
+                for (int column = 1; column < data.Columns.Count; column++)
+                {
+                    for (int row = 0; row < data.Rows.Count; row++)
+                    {
+                        size++;
+                        for (int i = 0; i < states.Count; i++)
+                        {
+                            if (states[i].Equals(Convert.ToString(data.Rows[row].ItemArray[column])))
+                            {
+
+                                stateExists++;
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (stateExists<size) 
+            {
+                MessageBox.Show("Los campos deben concordar con los estados", "Invalido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (validInput && stateExists==size)
+            {
+                for (int i = 0; i < data.Columns.Count; i++)
+                {
+                    matrix[0, i] = data.Columns[i].ColumnName;
+
+                }
+
+
+
+                for (int column = 0; column < data.Columns.Count; column++)
+                {
+                    for (int row = 0; row < data.Rows.Count; row++)
+                    {
+                        matrix[row + 1, column] = Convert.ToString(data.Rows[row].ItemArray[column]);
+                    }
+                }
+
+                manager = new MachineManager(matrix, machineType);
+                manager.CreateMachine();
+                Form1 form = (Form1)this.FindForm();
+                form.ShowReducedTable(manager);
+            }
         }
     }
 }

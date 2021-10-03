@@ -16,6 +16,8 @@ namespace MinimumAutomaton
     public partial class Form1 : Form
     {
         private MachineManager manager;
+        private StateTable st;
+
         public Form1()
         {
             InitializeComponent();
@@ -51,10 +53,26 @@ namespace MinimumAutomaton
 
             machineDefinitionButton.Hide();
             panel1.Controls.Clear();
-
+            goBackButton.Show();
 
             panel1.Controls.Add(st);
         
+        }
+
+        private void goBackButton_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            machineDefinitionButton.Show();
+            panel1.Controls.Add(machineDefinition1);
+            goBackButton.Hide();
+
+        }
+
+        public void ShowReducedTable(MachineManager manager)
+        {
+            panel1.Controls.Clear();
+            ReducedTable rt = new ReducedTable(manager);
+            panel1.Controls.Add(rt);
         }
     }
 

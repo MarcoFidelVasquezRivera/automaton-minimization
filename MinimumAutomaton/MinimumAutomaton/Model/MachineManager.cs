@@ -40,14 +40,12 @@ namespace MinimumAutomaton.Model
                     {
                         transitions[rows-1, columns - 1] = matrix[rows, columns];
                     }
-                    Console.WriteLine();
                 }
 
-                IAutomaton machine = new MooreMachine(states, transitions, outputs);
+                machine = new MooreMachine(states, transitions, outputs);
                 machine.DeleteNotAccesibleStates();
                 machine.GeneratePartitions();
                 machine.GenerateMinimumEquivalentAutomaton();
-                getValues(machine.ReturnMatrix());
             }
             else {
 
@@ -59,9 +57,7 @@ namespace MinimumAutomaton.Model
         
         }
 
-
-
-        public void getValues(string[,] matrix)
+        public void PrintValues(string[,] matrix)
         {
             if (matrix != null && machineType != null)
             {
@@ -78,5 +74,16 @@ namespace MinimumAutomaton.Model
             }
         }
 
+
+        public string GetMachineType()
+        {
+            return machineType;
+
+        }
+
+        public string[,] GetValues()
+        {
+            return machine.ReturnMatrix();
+        }
     }
 }
