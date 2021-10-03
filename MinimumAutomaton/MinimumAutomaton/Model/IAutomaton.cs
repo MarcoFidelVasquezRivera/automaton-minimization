@@ -12,5 +12,7 @@ namespace MinimumAutomaton.Model
         void DeleteNotAccesibleStates();
         List<List<string>> GeneratePartitions();
         void GenerateMinimumEquivalentAutomaton();
+
+        string[,] ReturnMatrix();
     }
 }

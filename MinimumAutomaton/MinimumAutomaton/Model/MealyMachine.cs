@@ -80,5 +80,10 @@ namespace MinimumAutomaton.Model
         {
             throw new NotImplementedException();
         }
+
+        public string[,] ReturnMatrix()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -255,9 +255,30 @@ namespace MinimumAutomaton.Model
                 Console.WriteLine(" Outputs " + outputs[states[i]]);
             }
 
-
-
-
         }
+
+
+        public string[,] ReturnMatrix() 
+        {
+            string[,] matrix = new string[transitions.GetLength(0), transitions.GetLength(1) + 2];
+
+           for(int i = 0; i < matrix.GetLength(0); i++) 
+           {
+                matrix[i, 0] = states[i];
+                matrix[i, matrix.GetLength(1)-1] = outputs[states[i]];
+           }
+
+           for (int rows = 0; rows < transitions.GetLength(0); rows++)
+           {
+               for (int columns = 0; columns < transitions.GetLength(1); columns++)
+               {
+                    matrix[rows, columns + 1] = transitions[rows, columns];
+               }
+           }
+
+
+            return matrix;
+        }
+ 
     }
 }
