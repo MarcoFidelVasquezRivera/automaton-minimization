@@ -38,17 +38,26 @@ namespace MinimumAutomaton.GUI
             table.Columns[0].ColumnName = "States";
             table.Columns[1].ColumnName = "q0";
 
-            for (int i = 1; i < table.Columns.Count - 1; i++)
-            {
-                table.Columns[i].ColumnName = "q" + (i - 1);
 
-            }
 
             if (manager.GetMachineType().Equals("Moore"))
             {
+                for (int i = 1; i < table.Columns.Count - 1; i++)
+                {
+                    table.Columns[i].ColumnName = "q" + (i - 1);
+
+                }
 
                 table.Columns[table.Columns.Count-1].ColumnName = "Outputs";
 
+            }
+            else
+            {
+                for (int i = 1; i < table.Columns.Count; i++)
+                {
+                    table.Columns[i].ColumnName = "q" + (i - 1);
+
+                }
             }
 
             

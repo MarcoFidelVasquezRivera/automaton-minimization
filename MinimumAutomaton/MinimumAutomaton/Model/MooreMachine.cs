@@ -161,9 +161,7 @@ namespace MinimumAutomaton.Model
                         bool flag = true;
                         for (int j = 0; j < currentIndexes.Count && flag; j++)//mira si los indices del representante son los mimos que el de el estado actual
                         {
-                            bool representativeCointains = representativeIndexes.Contains(currentIndexes[j]);
-                            bool currentContains = currentIndexes.Contains(representativeIndexes[j]);
-                            if (!(representativeCointains && currentContains))
+                            if (currentIndexes[j] != representativeIndexes[j])
                             {
                                 nonEquivalentStates.Add(currentState);
                                 flag = false;
