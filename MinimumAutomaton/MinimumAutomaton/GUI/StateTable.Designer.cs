@@ -52,7 +52,7 @@ namespace MinimumAutomaton.GUI
             this.saveStates.Name = "saveStates";
             this.saveStates.Size = new System.Drawing.Size(75, 23);
             this.saveStates.TabIndex = 1;
-            this.saveStates.Text = "Save";
+            this.saveStates.Text = "Reduce";
             this.saveStates.UseVisualStyleBackColor = true;
             this.saveStates.Click += new System.EventHandler(this.saveStates_Click);
             // 
