@@ -49,8 +49,32 @@ namespace MinimumAutomaton.Model
             }
             else {
 
-                Console.WriteLine("No implementado ja");
-            
+
+
+                string[,] transitions = new string[matrix.GetLength(0), matrix.GetLength(1) - 1];
+                string[,] outputs = new string[matrix.GetLength(0), matrix.GetLength(1) - 1];
+                List<string> states = new List<string>();
+                
+
+                for (int i = 1; i < matrix.GetLength(0); i++)
+                {              
+                    states.Add(matrix[i, 0]);
+                }
+
+                for (int rows = 1; rows < matrix.GetLength(0); rows++)
+                {
+                    for (int columns = 1; columns < matrix.GetLength(1); columns++)
+                    {
+                        string[] split = matrix[rows, columns].Split(','); // Separo la celda de la matriz en transition/output.
+                        transitions[rows - 1, columns - 1] = split[0]; //Pongo la transicion
+                        outputs[rows - 1, columns - 1] = split[1];//Pongo el output
+                    }
+                }
+
+                PrintValues(transitions);
+                PrintValues(outputs);
+                machine = new MealyMachine(states, transitions, outputs);
+
             }
         
         

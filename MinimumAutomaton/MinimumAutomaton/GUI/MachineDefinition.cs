@@ -20,7 +20,8 @@ namespace MinimumAutomaton.GUI
 
         public String ReturnInfo()
         {
-            String machineType = "";
+            string machineType = "";
+            string values = "";
             if (Mealy.Checked == true)
             {
                 machineType = "Mealy";
@@ -29,8 +30,10 @@ namespace MinimumAutomaton.GUI
             {
                 machineType = "Moore";
             }
+                
+            
+            values = machineType + "," + numberOfStates.Text + "," + alphaLength.Text;
 
-            String values = machineType + "," + numberOfStates.Text + "," + alphaLength.Text;
 
             return values;
         }

@@ -135,9 +135,10 @@ namespace MinimumAutomaton.GUI
                     for (int row = 0; row < data.Rows.Count; row++)
                     {
                         size++;
+                        string[] split = Convert.ToString(data.Rows[row].ItemArray[column]).Split(',');
                         for (int i = 0; i < states.Count; i++)
                         {
-                            if (states[i].Equals(Convert.ToString(data.Rows[row].ItemArray[column])))
+                            if (states[i].Equals(split[0]))
                             {
 
                                 stateExists++;
