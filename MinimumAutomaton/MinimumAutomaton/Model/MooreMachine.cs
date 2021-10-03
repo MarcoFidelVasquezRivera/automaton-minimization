@@ -19,7 +19,7 @@ namespace MinimumAutomaton.Model
             this.outputs = outputs;
         }
 
-        public void GetAccesibleStates(Dictionary<string, int> minimumStates, int state = 0)
+        public void GetAccesibleStates(Dictionary<string, int> minimumStates, int state = 0)//obtiene los estados a los que se puede acceder desde el estado inicial
         {
             string currentState = states[state];
 
@@ -42,7 +42,7 @@ namespace MinimumAutomaton.Model
             }
         }
 
-        public void DeleteNotAccesibleStates()
+        public void DeleteNotAccesibleStates()//elimina los estados que no son accesibles
         {
             Dictionary<string, int> accesibleStates = new Dictionary<string, int>();
             GetAccesibleStates(accesibleStates, 0);//gets the accesible states from the initial state
@@ -94,8 +94,10 @@ namespace MinimumAutomaton.Model
 
         }
 
-        public List<List<string>> GeneratePartitions()
-        {
+        public List<List<string>> GeneratePartitions()//pone los estados en particiones, rpresentando esto con una lista de listas
+        {//siendo cada lista una particion, luego de cada partición elige un representante y saca de la particion a todos los
+            //estados que no apuntan al mismo lugar del representante y hace una nueva particion con ellos
+            //este proceso se repite una y otra vez con todas las particiones hasta que no se crea ninguna nueva
             Dictionary<string, List<string>> initialPartitions = new Dictionary<string, List<string>>();
 
             for (int i=0; i<states.Count;i++)//crea las particiones basadas en lo outputs
@@ -130,6 +132,7 @@ namespace MinimumAutomaton.Model
                     List<string> partition = partitions[i];
                     List<int> representativeIndexes = new List<int>();//indices de las particiones a las que apunta el estado representante
                     List<string> nonEquivalentStates = new List<string>();
+                    List<int> currentIndexes = new List<int>();
 
                     int row = states.IndexOf(partition[0]);//me va a dar el indice del estado que representa a la particion
 
@@ -147,16 +150,30 @@ namespace MinimumAutomaton.Model
                                     {
                                         representativeIndexes.Add(partitions.IndexOf(currentPartition));
                                     }
-                                    else if(!representativeIndexes.Contains(partitions.IndexOf(currentPartition)))
+                                    else
                                     {
-                                        nonEquivalentStates.Add(currentState);
+                                        currentIndexes.Add(partitions.IndexOf(currentPartition));
                                     }
                                 }
                             }
                         }
+                        //primero debo sacar todos los incides y luego compararlos
+                        bool flag = true;
+                        for (int j = 0; j < currentIndexes.Count && flag; j++)//mira si los indices del representante son los mimos que el de el estado actual
+                        {
+                            bool representativeCointains = representativeIndexes.Contains(currentIndexes[j]);
+                            bool currentContains = currentIndexes.Contains(representativeIndexes[j]);
+                            if (!(representativeCointains && currentContains))
+                            {
+                                nonEquivalentStates.Add(currentState);
+                                flag = false;
+                            }
+                        }
+                        currentIndexes.Clear();
+                        
                     }
 
-                    foreach(string currentState in nonEquivalentStates){//elimino los estdos no equivalentes de la particion
+                    foreach (string currentState in nonEquivalentStates){//elimino los estdos no equivalentes de la particion
                         partition.Remove(currentState);
                     }
 
@@ -186,14 +203,14 @@ namespace MinimumAutomaton.Model
             return partitions;
         }
 
-        public void GenerateMinimumEquivalentAutomaton()
+        public void GenerateMinimumEquivalentAutomaton()//generates th minimum equivalent automaton for the automaton
         {
             List<List<string>> newPartitions = GeneratePartitions();
             List<List<string>> partitions = new List<List<string>>();
 
             partitions.Add(newPartitions[0]);
 
-            newPartitions.RemoveAt(0);
+            newPartitions.RemoveAt(0);//reverses the partition to have it ordered because GeneratePartitions reverses its order
             newPartitions.Reverse();
 
             foreach (List<string> partition in newPartitions)
@@ -239,6 +256,7 @@ namespace MinimumAutomaton.Model
                 }
             }
 
+            //changes the previous automaton for the new one
             states = newStates;
             transitions = newTransitions;
             outputs = newOutputs;
@@ -258,7 +276,7 @@ namespace MinimumAutomaton.Model
         }
 
 
-        public string[,] ReturnMatrix() 
+        public string[,] ReturnMatrix() //returns the automaton represented as a matrix
         {
             string[,] matrix = new string[transitions.GetLength(0), transitions.GetLength(1) + 2];
 

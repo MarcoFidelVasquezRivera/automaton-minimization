@@ -44,7 +44,6 @@ namespace MinimumAutomaton.Model
 
                 machine = new MooreMachine(states, transitions, outputs);
                 machine.DeleteNotAccesibleStates();
-                machine.GeneratePartitions();
                 machine.GenerateMinimumEquivalentAutomaton();
             }
             else {
@@ -74,6 +73,8 @@ namespace MinimumAutomaton.Model
                 PrintValues(transitions);
                 PrintValues(outputs);
                 machine = new MealyMachine(states, transitions, outputs);
+                machine.DeleteNotAccesibleStates();
+                machine.GenerateMinimumEquivalentAutomaton();
 
             }
         
